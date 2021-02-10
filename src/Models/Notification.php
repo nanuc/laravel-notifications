@@ -22,4 +22,9 @@ class Notification extends Model
         return (new static())->whereNull('model_id')->get();
     }
 
+    public static function globalAndActive()
+    {
+        return (new static())->whereNull('model_id')->where('is_active', true)->get();
+    }
+
 }

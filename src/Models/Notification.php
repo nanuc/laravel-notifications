@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    protected $fillable = ['type', 'expires_at', 'token'];
+    protected $fillable = ['model_type', 'model_id', 'is_active', 'expires_at'];
 
     protected $casts = [
-        'expired_at' => 'datetime',
+        'expires_at' => 'datetime',
     ];
 
-    public function tokenable()
-    {
-        return $this->morphTo('model');
-    }
 }

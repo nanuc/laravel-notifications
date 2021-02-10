@@ -19,6 +19,7 @@ class LaravelNotificationsMigrations extends Migration
             $table->integer('model_id')->index();
             $table->boolean('is_active')->index()->default(1);
             $table->dateTime('expires_at')->index();
+            $table->text('text');
             $table->timestamps();
         });
     }

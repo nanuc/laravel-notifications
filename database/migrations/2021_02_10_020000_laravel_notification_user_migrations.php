@@ -29,6 +29,6 @@ class LaravelNotificationUserMigrations extends Migration
      */
     public function down()
     {
-        Schema::drop('notifications');
+        Schema::drop('notification_user');
     }
 }

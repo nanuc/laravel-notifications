@@ -10,7 +10,7 @@ trait HasNotifications
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        return $this->morphMany(Notification::class, 'model',);
     }
 
     public function dueNotifications()
@@ -22,11 +22,11 @@ trait HasNotifications
 
     public function dueNotificationsForUser($user)
     {
-        $userSentNotifications = $user->notifications;
+        $userSentNotifications = $user->nanucNotifications();
 
         return $this->dueNotifications()
             ->get()
-            ->diff($userSentNotifications);
+            ->diff(collect($userSentNotifications));
     }
 
 }

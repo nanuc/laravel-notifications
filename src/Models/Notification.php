@@ -33,14 +33,12 @@ class Notification extends Model
     {
         return $query->whereDate('expires_at', '>', Carbon::now());
     }
-    
-    public static function forModel($model)
+
+    public function scopeIsModel($query, $model)
     {
-        return (new static())
+        return $query
             ->where('model_type', $model::class)
-            ->where('model_id', $model->id)
-            ->where('is_active')
-            ->get();
+            ->where('model_id', $model->id);
     }
 
 }

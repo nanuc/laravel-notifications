@@ -15,8 +15,8 @@ class LaravelNotificationsMigrations extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('model_type')->index();
-            $table->integer('model_id')->index();
+            $table->string('model_type')->index()->nullable();;
+            $table->integer('model_id')->index()->nullable();;
             $table->boolean('is_active')->index()->default(1);
             $table->dateTime('expires_at')->index();
             $table->text('text');

@@ -3,6 +3,7 @@
 namespace Nanuc\LaravelNotifications\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Notification extends Model
 {
@@ -15,5 +16,10 @@ class Notification extends Model
     protected $casts = [
         'expires_at' => 'datetime',
     ];
+
+    public static function global()
+    {
+        return (new static())->whereNull('model_id')->get();
+    }
 
 }

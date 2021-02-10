@@ -2,6 +2,8 @@
 
 namespace Nanuc\LaravelNotifications\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
@@ -17,14 +19,28 @@ class Notification extends Model
         'expires_at' => 'datetime',
     ];
 
-    public static function global()
+    public function scopeIsActive($query)
     {
-        return (new static())->whereNull('model_id')->get();
+        return $query->where('is_active', true);
     }
 
-    public static function globalAndActive()
+    public function scopeIsGlobal($query)
     {
-        return (new static())->whereNull('model_id')->where('is_active', true)->get();
+        return $query->whereNull('model_type');
+    }
+
+    public function scopeIsNotExpired($query)
+    {
+        return $query->whereDate('expires_at', '>', Carbon::now());
+    }
+    
+    public static function forModel($model)
+    {
+        return (new static())
+            ->where('model_type', $model::class)
+            ->where('model_id', $model->id)
+            ->where('is_active')
+            ->get();
     }
 
 }

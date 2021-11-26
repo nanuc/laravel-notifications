@@ -13,13 +13,15 @@ class LaravelNotificationUserMigrations extends Migration
      */
     public function up()
     {
-        Schema::create('notification_user', function (Blueprint $table) {
-            $table->id();
-            $table->integer('notification_id')->index();
-            $table->integer('user_id')->index();
-            $table->dateTime('notified_at')->index();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('notification_user')) {
+            Schema::create('notification_user', function (Blueprint $table) {
+                $table->id();
+                $table->integer('notification_id')->index();
+                $table->integer('user_id')->index();
+                $table->dateTime('notified_at')->index();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

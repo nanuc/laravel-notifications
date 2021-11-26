@@ -13,15 +13,17 @@ class LaravelNotificationsMigrations extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->string('model_type')->index()->nullable();;
-            $table->integer('model_id')->index()->nullable();;
-            $table->boolean('is_active')->index()->default(1);
-            $table->dateTime('expires_at')->index();
-            $table->text('text');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('notifications')) {
+            Schema::create('notifications', function (Blueprint $table) {
+                $table->id();
+                $table->string('model_type')->index()->nullable();;
+                $table->integer('model_id')->index()->nullable();;
+                $table->boolean('is_active')->index()->default(1);
+                $table->dateTime('expires_at')->index();
+                $table->text('text');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
